@@ -1,4 +1,6 @@
 let searchBox = document.querySelector("#searchTerm")
+let searchForm = document.querySelector('#showSearch')
+let heading = document.querySelector("#heading")
 
 async function search(show) {
     try {
@@ -8,51 +10,61 @@ async function search(show) {
         for (let i = 0; i < 3; i++) {
             try {
                 let container = document.createElement('div')
+                container.classList.add("shows")
+
+                let facts = document.createElement('ul')
+                facts.classList.add("facts")
+
                 let name = document.createElement('p')
+                name.classList.add("showTitle")
                 name.append(data[i].show.name)
                 container.append(name)
 
                 let image = document.createElement('img')
+                image.classList.add("showPicture")
                 image.src = data[i].show.image.medium
                 container.append(image)
 
-                let language = document.createElement('p')
+                let language = document.createElement('li')
                 language.append(data[i].show.language)
-                container.append(language)
+                facts.append(language)
 
-                let premiered = document.createElement('p')
+                let premiered = document.createElement('li')
                 premiered.append(data[i].show.premiered)
-                container.append(premiered)
+                facts.append(premiered)
 
-                let runtime = document.createElement('p')
+                let runtime = document.createElement('li')
                 runtime.append(data[i].show.runtime)
-                container.append(runtime)
+                facts.append(runtime)
 
-                let summaryContainer = document.createElement('p')
+                let summaryContainer = document.createElement('li')
                 let summary = (data[i].show.summary).replace(/<[^>]*>?/gm, '')
                 summaryContainer.append(summary)
-                container.append(summaryContainer)
+                facts.append(summaryContainer)
 
-                let score = document.createElement('p')
+                let score = document.createElement('li')
                 score.append(data[i].score)
-                container.append(score)
+                facts.append(score)
 
+                container.append(facts)
                 document.body.append(container)
 
             } catch (error) {
                 console.log(error)
             }
         }
-
-
     } catch (error) {
-        console.log(error)
         alert("Please Try Again")
     }
+
+    searchForm.style.top = "10px"
+    heading.remove()
 }
 searchBox.addEventListener('keydown', async function (evt) {
     if (evt.key == 'Enter') {
         evt.preventDefault()
+        console.log(document.querySelectorAll(".shows"))
+        if (document.querySelectorAll(".shows").length != 0) document.querySelectorAll('.shows').forEach(e => e.remove());
         if (searchBox.value != "") {
             await search(searchBox.value)
             searchBox.value = ""
