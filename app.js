@@ -7,18 +7,40 @@ async function search(show) {
 
         console.log(data)
         for (let i = 0; i < 3; i++) {
-            console.log(data[i].show.name)
-            console.log(data[i].show.image.medium)
-            console.log(data[i].show.language)
-            console.log(data[i].show.premiered)
-            console.log(data[i].show.runtime)
-            console.log(data[i].show.summary)
-            console.log(data[i].score)
-            console.log("")
+            let container = document.createElement('div')
+            let name = document.createElement('p')
+            name.append(data[i].show.name)
+            container.append(name)
+
+            let image = document.createElement('img')
+            image.src = data[i].show.image.medium
+            container.append(image)
+
+            let language = document.createElement('p')
+            language.append(data[i].show.language)
+            container.append(language)
+
+            let premiered = document.createElement('p')
+            premiered.append(data[i].show.premiered)
+            container.append(premiered)
+
+            let runtime = document.createElement('p')
+            runtime.append(data[i].show.runtime)
+            container.append(runtime)
+
+            let summary = document.createElement('p')
+            summary.append(data[i].show.summary)
+            container.append(summary)
+
+            let score = document.createElement('p')
+            score.append(data[i].score)
+            container.append(score)
+
+            document.body.append(container)
         }
     } catch (error) {
+        console.log(error)
         alert("Please Try Again")
-        location.reload()
     }
 }
 searchBox.addEventListener('keydown', async function (evt) {
