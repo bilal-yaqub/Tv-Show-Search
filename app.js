@@ -1,10 +1,21 @@
 let searchBox = document.querySelector("#searchTerm")
-console.log("This works")
 
 async function search(show) {
     try {
         let results = await axios.get(`https://api.tvmaze.com/search/shows?q=${show}`)
-        console.log(results)
+        let data = results.data
+
+        console.log(data)
+        for (let i = 0; i < 3; i++) {
+            console.log(data[i].show.name)
+            console.log(data[i].show.image.medium)
+            console.log(data[i].show.language)
+            console.log(data[i].show.premiered)
+            console.log(data[i].show.runtime)
+            console.log(data[i].show.summary)
+            console.log(data[i].score)
+            console.log("")
+        }
     } catch (error) {
         alert("Please Try Again")
         location.reload()
