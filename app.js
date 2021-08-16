@@ -5,39 +5,46 @@ async function search(show) {
         let results = await axios.get(`https://api.tvmaze.com/search/shows?q=${show}`)
         let data = results.data
 
-        console.log(data)
         for (let i = 0; i < 3; i++) {
-            let container = document.createElement('div')
-            let name = document.createElement('p')
-            name.append(data[i].show.name)
-            container.append(name)
+            try {
+                let container = document.createElement('div')
+                let name = document.createElement('p')
+                name.append(data[i].show.name)
+                container.append(name)
 
-            let image = document.createElement('img')
-            image.src = data[i].show.image.medium
-            container.append(image)
+                let image = document.createElement('img')
+                image.src = data[i].show.image.medium
+                container.append(image)
 
-            let language = document.createElement('p')
-            language.append(data[i].show.language)
-            container.append(language)
+                let language = document.createElement('p')
+                language.append(data[i].show.language)
+                container.append(language)
 
-            let premiered = document.createElement('p')
-            premiered.append(data[i].show.premiered)
-            container.append(premiered)
+                let premiered = document.createElement('p')
+                premiered.append(data[i].show.premiered)
+                container.append(premiered)
 
-            let runtime = document.createElement('p')
-            runtime.append(data[i].show.runtime)
-            container.append(runtime)
+                let runtime = document.createElement('p')
+                runtime.append(data[i].show.runtime)
+                container.append(runtime)
 
-            let summary = document.createElement('p')
-            summary.append(data[i].show.summary)
-            container.append(summary)
+                let summaryContainer = document.createElement('p')
+                let summary = (data[i].show.summary).replace(/<[^>]*>?/gm, '')
+                summaryContainer.append(summary)
+                container.append(summaryContainer)
 
-            let score = document.createElement('p')
-            score.append(data[i].score)
-            container.append(score)
+                let score = document.createElement('p')
+                score.append(data[i].score)
+                container.append(score)
 
-            document.body.append(container)
+                document.body.append(container)
+
+            } catch (error) {
+                console.log(error)
+            }
         }
+
+
     } catch (error) {
         console.log(error)
         alert("Please Try Again")
